@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at bottom, #020024, #090979, #000);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Sections */
+section {
+  min-height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  animation: fade 1.2s ease;
+}
+
+.active {
+  display: flex;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Buttons */
+button {
+  padding: 14px 36px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white;
+  cursor: pointer;
+  margin-top: 25px;
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(135deg, #fff1eb, #ace0f9);
+  color: black;
+  max-width: 360px;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.4);
+}
+
+/* Snow */
+.snow {
+  position: fixed;
+  top: -10px;
+  color: white;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+/* Fireworks canvas */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- OPENING -->
+<section id="opening" class="active">
+  <h1>🎆Happy New Year 2026🎆</h1>
+  <p>Tap to begin the journey</p>
+  <button onclick="startJourney()">Start Journey</button>
+</section>
+
+<!-- CARD 1 -->
+<section id="card1">
+  <div class="card">
+    <h2>Happy New Year Anisha🤍</h2>
+    <p>
+      Thank you for being my supportive factor in 2025.<br><br>
+      We will continue this bond in 2026 and forever.<br><br>
+      Thank you for standing by me in my toughest phase.
+    </p>
+  </div>
+  <button onclick="nextCard()">Next</button>
+</section>
+
+<!-- CARD 2 -->
+<section id="card2">
+  <div class="card">
+    <h2>Always With You ❄️</h2>
+    <p>
+      No matter what the situation is, I’ll be there for you.<br><br>
+      As a best friend, I’ll always help you.<br><br>
+      But don’t forget me ❤️‍🩹
+    </p>
+  </div>
+</section>
+
+<script>
+/* MUSIC + NAVIGATION */
+function startJourney() {
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.4;
+  music.play();
+
+  show("opening", "card1");
+}
+
+function nextCard() {
+  show("card1", "card2");
+}
+
+function show(hide, show) {
+  document.getElementById(hide).classList.remove("active");
+  document.getElementById(show).classList.add("active");
+}
+
+/* SNOW */
+for (let i = 0; i < 60; i++) {
+  const s = document.createElement("div");
+  s.className = "snow";
+  s.innerHTML = "❄";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.fontSize = (10 + Math.random() * 20) + "px";
+  s.style.animationDuration = (5 + Math.random() * 10) + "s";
+  document.body.appendChild(s);
+}
+
+/* FIREWORKS */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.onresize = resize;
+
+let particles = [];
+
+function launchFirework() {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height / 2;
+
+  for (let i = 0; i < 40; i++) {
+    particles.push({
+      x, y,
+      vx: (Math.random() - 0.5) * 4,
+      vy: (Math.random() - 0.5) * 4,
+      life: 80
+    });
+  }
+}
+
+setInterval(launchFirework, 1200);
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach((p, i) => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life--;
+
+    ctx.fillStyle = "rgba(255,255,255,0.8)";
+    ctx.fillRect(p.x, p.y, 2, 2);
+
+    if (p.life <= 0) particles.splice(i, 1);
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
