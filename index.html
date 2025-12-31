@@ -112,7 +112,7 @@ canvas {
 <!<!-- CARD 2 -->
 <section id="card2">
   <div class="card">
-    <h2>🤍 Forever Grateful 🤍</h2>
+    <h2>Forever Grateful 🤍</h2>
     <p>
       You may never know how much your presence meant to me.<br><br>
       How one message, one call, one small reminder kept me going...<br><br>
@@ -122,7 +122,7 @@ canvas {
   <button onclick="nextCard2()">Next</button>
 </section>
 
-  <section id="card3">
+<section id="card3">
   <div class="card">
     <h2>Always There for You ❄️</h2>
     <p>
@@ -137,7 +137,7 @@ canvas {
 /* MUSIC + NAVIGATION */
 function startJourney() {
   const music = document.getElementById("bgMusic");
-  music.volume = 0.4;
+  music.volume = 0.9;
   music.play();
 
   show("opening", "card1");
@@ -160,7 +160,7 @@ function show(hide, show) {
 for (let i = 0; i < 60; i++) {
   const s = document.createElement("div");
   s.className = "snow";
-  s.innerHTML = "❄";
+  s.innerHTML = "❄","☃️";
   s.style.left = Math.random() * 100 + "vw";
   s.style.fontSize = (10 + Math.random() * 20) + "px";
   s.style.animationDuration = (5 + Math.random() * 10) + "s";
